@@ -8,7 +8,6 @@ from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 
-import pinecone
 import os
 
 PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
