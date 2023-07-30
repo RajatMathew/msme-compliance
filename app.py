@@ -31,15 +31,15 @@ def get_text_chunks(text):
 
 
 def get_vectorstore(text_chunks):
-    #embeddings = OpenAIEmbeddings()
-    embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
+    embeddings = OpenAIEmbeddings()
+    #embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vectorstore
 
 
 def get_conversation_chain(vectorstore):
-    #llm = ChatOpenAI()
-    llm = HuggingFaceHub(repo_id="tiiuae/falcon-7b-instruct", model_kwargs={"temperature":0.5, "max_length":512})
+    llm = ChatOpenAI()
+    #llm = HuggingFaceHub(repo_id="tiiuae/falcon-7b-instruct", model_kwargs={"temperature":0.3, "max_length":512})
 
     memory = ConversationBufferMemory(
         memory_key='chat_history', return_messages=True)
@@ -66,7 +66,7 @@ def handle_userinput(user_question):
 
 def main():
     load_dotenv()
-    st.set_page_config(page_title="Chat with multiple PDFs",
+    st.set_page_config(page_title="MSME SAHAI",
                        page_icon=":books:")
     st.write(css, unsafe_allow_html=True)
 
@@ -75,11 +75,13 @@ def main():
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = None
 
-    st.header("Chat with multiple PDFs :books:")
-    user_question = st.text_input("Ask a question about your documents:")
+    st.header(":books: MSME SAHAI")
+    user_question = st.text_input("Ask a question about your documents:", placeholder="😄 Ask me anything about MSMEs")
     if user_question:
         handle_userinput(user_question)
 
+    #user_question = st.text("Ask a question about your documents:")
+    
     with st.sidebar:
         st.subheader("MSME Legal Compliance Database:")
         st.write("This is a database of legal compliance documents for MSMEs in India. The documents are from verified sources and are updated regularly.")
