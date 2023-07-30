@@ -70,7 +70,7 @@ def handle_userinput(user_question):
 
 def main():
     load_dotenv()
-    pinecone.init(api_key='PINECONE_API_KEY', environment='PINECONE_ENVIRONMENT')
+    pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENVIRONMENT)
     st.set_page_config(page_title="MSME SAHAI",
                        page_icon=":books:")
     st.write(css, unsafe_allow_html=True)
