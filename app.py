@@ -96,16 +96,26 @@ def main():
             with st.spinner("Processing"):
                 # get pdf text
                 raw_text = get_pdf_text(user_pdf_docs)
+                print(raw_text)
 
                 # get the text chunks
                 text_chunks = get_text_chunks(raw_text)
+                print(text_chunks)
+                
 
                 # create vector store
                 vectorstore = get_vectorstore(text_chunks)
+                print(vectorstore)
+                print(type(vectorstore))
 
                 # create conversation chain
                 st.session_state.conversation = get_conversation_chain(
                     vectorstore)
+
+        else:
+            raw_text = []
+            vectorstore = get_vectorstore(raw_text)
+            st.session_state.conversation = get_conversation_chain(vectorstore)
 
 
 if __name__ == '__main__':
