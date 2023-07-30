@@ -11,6 +11,11 @@ from langchain.chains import ConversationalRetrievalChain
 import pinecone
 import os
 
+PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
+PINECONE_ENVIRONMENT = os.environ.get("PINECONE_ENVIRONMENT")
+PINECONE_INDEX = os.environ.get("PINECONE_INDEX")
+
+
 from htmlTemplates import css, bot_template, user_template
 
 def get_pdf_text(user_pdf_docs):
@@ -35,7 +40,7 @@ def get_text_chunks(text):
 
 def get_vectorstore(text_chunks):
     embeddings = OpenAIEmbeddings()
-    vectorstore = Pinecone.from_texts(texts=text_chunks, embedding=embeddings, index_name="PINECONE_INDEX")
+    vectorstore = Pinecone.from_texts(texts=text_chunks, embedding=embeddings, index_name=PINECONE_INDEX)
     return vectorstore
 
 
@@ -66,7 +71,7 @@ def handle_userinput(user_question):
 
 def main():
     load_dotenv()
-    pinecone.init(api_key="PINECONE_API_KEY", environment="PINECONE_ENVIRONMENT")
+    pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENVIRONMENT)
     st.set_page_config(page_title="MSME SAHAI",
                        page_icon=":books:")
     st.write(css, unsafe_allow_html=True)
